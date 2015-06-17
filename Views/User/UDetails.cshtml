@@ -1,0 +1,142 @@
+﻿@using Eshopping.Models
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header ">
+        <a class="navbar-brand" href="/Home">EShopping</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+
+            <li class="action"><a href="/Admin">Home</a></li>
+            <li class="dropdown ">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Categories
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (var i in ViewBag.Category)
+                    {
+                        <li><a href="/Home/New/?name=@i.Name">@i.Name</a></li>
+                    }
+
+
+                </ul>
+
+            </li>
+
+            <li class="dropdown ">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Items
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+
+
+                    <li><a href="/Item/Add">Add Items</a></li>
+                    <li><a href="/Item/Delete">Delete Items</a></li>
+                    <li><a href="/Item/Update">Update Items</a></li>
+
+
+                </ul>
+            </li>
+
+            <li class="dropdown ">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Users
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+
+
+                    <li><a href="/User/UDetails">View User Profile</a></li>
+                    <li><a href="/User/UDelete">Delete User</a></li>
+                </ul>
+            </li>
+
+            <li class="action"><a href="/Item/AddC">Add Category</a></li>
+            @if (Session["AdminId"] != null)
+            {
+
+                <li><a href="/Admin/SignOut">SignOut</a></li>
+            }
+
+
+        </ul>
+
+    </div>
+</nav>
+
+@if(Session["AdminId"] != null)
+{
+
+    <div class="row">
+        <div class="col-md-1">
+         
+        </div>
+          
+        <div class="col-md-12">
+            <h2>User Profile</h2>
+            <div class="col-md-8">
+                @foreach(var i in Model)
+                {
+                <div class="col-md-4">
+                    <ul>
+                        <li>
+
+                            <p>
+                                User ID:@i.Id
+                            </p>
+                        </li>
+                        <li>
+
+                            <p>
+                                Name:@i.Name
+
+                            </p>
+                        </li>
+                        
+
+                        <li>
+
+                            <p>
+                                Email:@i.Email
+                            </p>
+                        </li>
+
+                        <li>
+
+                            <p>
+                                Contact Number:@i.Contact
+                            </p>
+                        </li>
+
+                        <li>
+
+                            <p>
+                                Password:@i.Password
+                            </p>
+                        </li>
+
+                        
+                    </ul>
+                    
+                </div>
+                }
+
+
+            </div>
+       
+        </div>
+        </div>
+
+}
+else
+{
+    <br />
+    <h1>Page Not Accessable</h1>
+}

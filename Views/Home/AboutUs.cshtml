@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header ">
+        <a class="navbar-brand" href="/Home">EShopping</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            @if (Session["Id"] != null)
+            {
+                <li><img src="@Session["image"]" alt="" height="50" width="50"></li>
+                <li><a>@Session["uname"]</a></li>
+            }
+            <li class="action"><a href="/Home">Home</a></li>
+            <li class="dropdown ">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Categories
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (var i in ViewBag.Category)
+                    {
+                        <li><a href="/Home/New/?name=@i.Name">@i.Name</a></li>
+                    }
+
+
+                </ul>
+            </li>
+
+
+
+            @if (Session["Id"] != null)
+            {
+                <li><a href="/User/ViewProfile">View Profile</a></li>
+                <li><a href="/WishList/WishList">WishList</a></li>
+                <li><a href="/Cart/ViewCart">Cart</a></li>
+                <li><a href="/Home/SignOut">SignOut</a></li>
+            }
+
+            @if (Session["Id"] == null)
+            {
+
+                <li><a href="/Home/Login"><div class="pull-right">Login</div></a></li>
+                <li><a href="/Home/SignUp">SignUp</a></li>
+            }
+
+        </ul>
+
+        <form class=" navbar-form navbar-left pull-right" action="/Home/Search" method="post">
+
+            <div class="form-group ">
+                <input type="text" class="form-control" placeholder="Search" name="Search" />
+
+            </div>
+            <button type="submit" class="btn btn-group">Search</button>
+
+        </form>
+
+
+    </div>
+</nav>
+
+ <div class="page-title" >
+     <center>
+         <h1>About Us</h1>
+     </center>
+          
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8">
+            <ul>
+                <li>
+
+                    <p>
+                        EShopping is number one market place for online shopping in Pakistan.On Eshopping.com sellers offer a wide variety of products
+                        like clothes,shoes,jewellery,watches,bags,glasses,perfumes and much more.You will also be able to find discountson products
+                        and prices which are cheaper than rest of the market.
+
+                    </p>
+                </li>
+                <li>
+
+                    <p>
+                        Once register on EShopping.com you can use our plateform to buy products in Pakistan.It offers cash on delivery and Advance
+                        payment to ensure safe transcations.With our convienent cash won delivery services countrywide ,online shopping in pakistan
+                        has never been easier before.SignUp to receive information about top deals and new arrivals featured on our website
+                    </p>
+                </li>
+            </ul>
+       </div>
+       
+       <div class="col-md-4">
+        <p>
+             <img src="~/images/about1.jpg" alt="" />
+        </p>
+       </div>
+   </div>
+</div>
+
+              

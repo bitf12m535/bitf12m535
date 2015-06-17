@@ -1,0 +1,162 @@
+﻿@model Eshopping.Models.Item
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header ">
+        <a class="navbar-brand" href="/Home">EShopping</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+
+            <li class="action"><a href="/Admin">Home</a></li>
+            <li class="dropdown ">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Categories
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (var i in ViewBag.Category)
+                    {
+                        <li><a href="/Home/New/?name=@i.Name">@i.Name</a></li>
+                    }
+
+
+                </ul>
+
+            </li>
+
+            <li class="dropdown ">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Items
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+
+
+                    <li><a href="/Item/Add">Add Items</a></li>
+                    <li><a href="/Item/Delete">Delete Items</a></li>
+                    <li><a href="/Item/Update">Update Items</a></li>
+
+
+                </ul>
+            </li>
+
+            <li class="dropdown ">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Users
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+
+
+                    <li><a href="/User/UDetails">View User Profile</a></li>
+                    <li><a href="/User/UDelete">Delete User</a></li>
+                </ul>
+            </li>
+
+            <li class="action"><a href="/Item/AddC">Add Category</a></li>
+            @if (Session["AdminId"] != null)
+            {
+
+                <li><a href="/Admin/SignOut">SignOut</a></li>
+            }
+
+
+        </ul>
+
+    </div>
+</nav>
+
+@if(Session["AdminId"] != null)
+{
+<div class=" container">
+    <div >
+        <form role="form" method="post" action="/Item/Edit" enctype="multipart/form-data">
+            
+           
+            <fieldset>
+                @Html.HiddenFor(m => m.Id)
+
+               <legend>Update Item Details</legend>
+                  <div class="editor-label">
+                       @Html.LabelFor(m => m.Name)
+                  </div>
+
+                  <div class="editor-field">
+                     @Html.EditorFor(m => m.Name)
+                   
+                  </div>
+                
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Price)
+                </div>
+
+                <div class="editor-field">
+                     @Html.EditorFor(m => m.Price)
+                   
+                </div>
+                
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Description)
+                </div>
+
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Description)
+                
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Category)
+                </div>
+
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Category)
+                   
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Brand)
+                </div>
+
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Brand)
+
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Quantity)
+                </div>
+
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Quantity)
+
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Image)
+                </div>
+
+                <div class="editor-field" >
+                    @Html.EditorFor(m => m.Image)
+
+                </div>
+                <br />
+                <br />
+
+                <div class="pull-left">
+                   <input type="submit" value="Save" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+}
+else
+{
+    <br />
+    <h1>Page Not Accessable</h1>
+}
+
+

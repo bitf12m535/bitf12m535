@@ -1,0 +1,213 @@
+﻿<script>
+
+    $(document).ready(function () {
+
+        //$('#checking').hide();
+
+        $('#btn').click(function () {
+
+            var Email = $('#Email').val();
+
+            //alert('User Name ='+ userName);
+            $('#checking').show();
+            $.getJSON("/home/CheckUserName?Email=" + Email, function (data){
+                //$('#checking').hide();
+               
+                if (data) {
+                    $('#result').text("Email already exists.Plz Try Again!!!");
+                }
+                else
+                {
+                    $('#result').text("Email is available");
+
+                }
+            });
+
+        });
+
+    });
+
+
+</script>
+
+
+
+
+
+
+@model Eshopping.Models.Account
+
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header ">
+                <a class="navbar-brand" href="/Home">EShopping</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    @if (Session["Id"] != null || Session["AdminId"] != null)
+                    {
+                        <li><img src="@Session["image"]" alt="" height="50" width="50"></li>
+                        <li><a>@Session["uname"]</a></li>
+                    }
+                    <li class="action"><a href="/Home">Home</a></li>
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Categories
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach (var i in ViewBag.Category)
+                            {
+                                <li><a href="/Home/New/?name=@i.Name">@i.Name</a></li>
+                            }
+
+
+                        </ul>
+                    </li>
+
+
+
+                    @if (Session["Id"] != null || Session["AdminId"] != null)
+                    {
+                        <li><a href="/User/ViewProfile">View Profile</a></li>
+                        <li><a href="/WishList/WishList">WishList</a></li>
+                        <li><a href="/Cart/ViewCart">Cart</a></li>
+                        <li><a href="/Home/SignOut">SignOut</a></li>
+                    }
+
+                    @if (Session["Id"] == null || Session["AdminId"] == null)
+                    {
+
+                        <li><a href="/Home/Login"><div class="pull-right">Login</div></a></li>
+                        <li><a href="/Home/SignUp">SignUp</a></li>
+                    }
+
+                </ul>
+
+                <form class=" navbar-form navbar-left pull-right" action="/Home/Search" method="post">
+
+                    <div class="form-group ">
+                        <input type="text" class="form-control" placeholder="Search" name="Search" />
+
+                    </div>
+                    <button type="submit" class="btn btn-group">Search</button>
+
+                </form>
+
+
+            </div>
+        </nav>
+
+
+        <div class="container" style="margin: 10px;">
+            <div class="row">
+                <h2>Create A New Account</h2>
+            </div>
+
+            <form name="myForm" role="form" method="post" action="/Home/Account" enctype="multipart/form-data" onsubmit="return validateForm()">
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label for="firstname" class="col-md-2">
+                        Name:
+                    </label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter Name" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                      
+                    </div>
+
+
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <label for="emailaddress" class="col-md-2">
+                        Email address:
+                    </label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Enter Email Address" })
+                        @Html.ValidationMessageFor(m => m.Email)
+
+                       
+                        <input type="button" id="btn" value="Check" class="btn btn-info pull-right" />
+                        <div id="result"></div>
+                        
+                        
+                    </div>
+                </div>
+                
+
+
+                <br />
+
+                <div class="form-group">
+                    
+                    <label for="lastname" class="col-md-2">
+                   
+                        Contact Number:
+                    </label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", placeholder = "Enter Contact " })
+                        @Html.ValidationMessageFor(m => m.Contact)
+                    </div>
+
+
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="password" class="col-md-2">
+                        Password:
+                    </label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Enter Name",type ="password" })
+                        @Html.ValidationMessageFor(m => m.Password)
+                        <p class="help-block">
+                            Min: 6 characters
+                        </p>
+                    </div>
+
+
+                </div>
+
+
+                <br />
+
+                <div class="form-group">
+                    <label for="uploadimage" class="col-md-2">
+                        Upload Image:
+                    </label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Image, new {type = "file" })
+                        @Html.ValidationMessageFor(m => m.Image)
+                        
+                    </div>
+
+
+                </div>
+
+               
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-10">
+                        <br />
+                        <button type="submit" class="btn btn-info">
+                            SignUp
+                        </button>
+                    </div>
+                </div>
+                <p>@ViewBag.Email</p>
+            </form>
+        </div>
+
+
+
+
+
+

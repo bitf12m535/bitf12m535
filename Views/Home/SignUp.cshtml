@@ -107,7 +107,7 @@
             <div class="row">
                 <h2>Create A New Account</h2>
             </div>
-
+            
             <form name="myForm" role="form" method="post" action="/Home/Account" enctype="multipart/form-data" onsubmit="return validateForm()">
                 @Html.ValidationSummary(true)
                 @Html.AntiForgeryToken()
@@ -131,7 +131,7 @@
                         Email address:
                     </label>
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Enter Email Address" })
+                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Enter Email Address"})
                         @Html.ValidationMessageFor(m => m.Email)
 
                        
@@ -165,7 +165,7 @@
                         Password:
                     </label>
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Enter Name",type ="password" })
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Enter Password",type ="password" })
                         @Html.ValidationMessageFor(m => m.Password)
                         <p class="help-block">
                             Min: 6 characters
